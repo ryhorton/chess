@@ -70,7 +70,7 @@ class Board
   end
 
   def pieces
-    pieces = []
+    # pieces = []
 
     # Array#compact => removes all nil's
     board.flatten.compact
@@ -102,6 +102,10 @@ class Board
 
   def inspect
     "board"
+  end
+
+  def dup
+    pieces.map { |piece| piece.class.new(piece.color, piece.position, piece.board) }
   end
 
 end
