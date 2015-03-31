@@ -2,6 +2,18 @@
 
 require 'yaml'
 
+class Game
+
+
+
+
+  def save
+
+  end
+
+end
+
+
 if __FILE__ == $PROGRAM_NAME
 
   case ARGV.count

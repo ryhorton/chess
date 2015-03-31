@@ -1,18 +1,15 @@
 class Piece
 
-  attr_accessor
+  attr_accessor :color, :position, :board
 
-  def initialize(position, board)
+  def initialize(color, position, board)
+    @color = color
     @position = position
     @board = board
+
   end
 
-  def [](pos)
-    row, col = pos
-    @board[row][col]
-  end
-
-
+  
   def moves
     raise "Only implemented in the Piece subclasses!"
   end

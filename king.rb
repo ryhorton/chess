@@ -1,13 +1,13 @@
 require_relative 'stepping_pieces.rb'
 
-class Knight < SteppingPieces
+class King < SteppingPieces
 
   def type
-    "k"
+    "K"
   end
 
   def move_dirs
-    # straight_moves
+    straight_moves + diagonal_moves
   end
 
 end
