@@ -40,6 +40,11 @@ class Board
     @board[x][y]   # allows you to do: board[pos] === board.[](pos)
   end
 
+  def []=(pos, value)
+    x, y = pos
+    @board[x][y] = value  # allows you to do: self.[]=(value)
+  end
+
   def valid_pos?(pos)
     pos.all? { |i| i.between?(0,7) }
   end
@@ -80,7 +85,16 @@ class Board
   end
 
   def move(start, end_pos)
+    if self[start].nil?
+      raise "There is no piece to move at that position."
+    elsif self[end_pos] && (self[end_pos].color == self[start].color)
+      raise "You can't move into a position you already occupy."
+    end
+    # self.[]([1,2])
+    # self.[]=(value)
 
+    self[end_pos] = self[start]
+    self[start] = nil
   end
 
   def inspect
