@@ -7,7 +7,7 @@ class Knight < SteppingPieces
   end
 
   def move_dirs
-    # straight_moves
+    straight_moves
   end
 
 end

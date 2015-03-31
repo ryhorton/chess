@@ -93,7 +93,10 @@ class Board
     # self.[]([1,2])
     # self.[]=(value)
 
-    self[end_pos] = self[start]
+    moving_piece = self[start]
+    moving_piece.position = end_pos
+
+    self[end_pos] = moving_piece
     self[start] = nil
   end
 

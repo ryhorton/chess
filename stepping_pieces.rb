@@ -17,6 +17,14 @@ class SteppingPieces < Piece
     [-1, -1]
   ]
 
+  def straight_moves
+    STRAIGHT_MOVES
+  end
+
+  def diagonal_moves
+    DIAGONAL_MOVES
+  end
+
   def moves
     moves = []
     move_dirs.each do |x, y|

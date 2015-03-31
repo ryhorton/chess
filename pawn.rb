@@ -10,9 +10,9 @@ class Pawn < SteppingPieces
     # pawn can only step forward unless it is taking a piece,
     # then it can step diagonally
 
-    # diagonal_moves + straight_moves
+    diagonal_moves + straight_moves
 
-    
+
   end
 
 end

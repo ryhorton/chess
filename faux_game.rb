@@ -3,17 +3,18 @@
 
 def testing(board)
 
-  # move pawn in front of king up board
-  board.move([3,1], [3,2])
-  board.move([3,2], [3,3])
+  # move (white) pawn in front of king up board
+  board.move([1,3], [2,3])
+  board.move([2,3], [3,3])
+  #
+  # # move (white) king up, over, up to other side
+  board.move([0,3], [1,3])
+  board.move([1,3], [2,3])
+  board.move([2,3], [2,4])
+  board.move([2,4], [3,4])
+  board.move([3,4], [4,4])
+  board.move([4,4], [5,4])
+  p board[[5,4]].class
 
-  # move king up, over, up to other side
-  board.move([3,0], [3,1])
-  board.move([3,1], [3,2])
-  board.move([3,2], [4,2])
-  board.move([4,2], [4,3])
-  board.move([4,3], [4,4])
-  board.move([4,4], [4,5])
-
-  # king is now in check, facing opponent's pawns
+  # white king is now in check, facing black pawns
 end
