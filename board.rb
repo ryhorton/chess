@@ -4,13 +4,15 @@ class Board
 
   attr_accessor :board
 
-  def initialize
-    set_up_board
+  def initialize(mid_game = false)
+    @board = Array.new(8) { Array.new(8) }
+
+    unless mid_game
+      set_up_board
+    end
   end
 
   def set_up_board
-    @board = Array.new(8) { Array.new(8) }
-
     back_row = [
       Rook,
       Knight,
@@ -105,7 +107,13 @@ class Board
   end
 
   def dup
-    pieces.map { |piece| piece.class.new(piece.color, piece.position, piece.board) }
+    dup = Board.new
+
+    pieces.each do |piece|
+      dup[piece.position] = piece.class.new(piece.color, piece.position, dup)
+    end
+
+    dup
   end
 
 end
