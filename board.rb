@@ -4,10 +4,10 @@ class Board
 
   attr_accessor :board
 
-  def initialize(mid_game = false)
+  def initialize(midgame = false)
     @board = Array.new(8) { Array.new(8) }
 
-    unless mid_game
+    unless midgame
       set_up_board
     end
   end
@@ -107,10 +107,10 @@ class Board
     moving_piece = self[start]
     moving_piece.position = end_pos
 
-    # if there is an opponent piece at end_pos, take it
-    if self[end_pos] && self[end_pos].color != moving_piece.color
-      self[end_pos] = nil
-    end
+    # # if there is an opponent piece at end_pos, take it
+    # if self[end_pos] && self[end_pos].color != moving_piece.color
+    #   self[end_pos] = nil
+    # end
 
     # assign the moving piece to end_pos
     self[end_pos] = moving_piece
@@ -118,17 +118,32 @@ class Board
   end
 
   def inspect
-    "board"
+    board.map do |row|
+      row.map do |piece|
+        piece.nil? ? "-" : piece.type
+      end.join(" ")
+    end.join("\n")
   end
 
   def dup
-    dup = Board.new
+    dup = Board.new(true)
 
     pieces.each do |piece|
       dup[piece.position] = piece.class.new(piece.color, piece.position, dup)
     end
 
     dup
+  end
+
+  def checkmate?(color)
+    # check all the pieces of the given color left on the board
+    remaining_pieces = self.pieces.select { |piece| piece.color == color }
+    # player in check and no valid moves left?
+    if in_check?(color) && remaining_pieces.all? { |piece| piece.valid_moves.empty? }
+      return true
+    end
+
+    false
   end
 
 end

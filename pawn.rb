@@ -20,4 +20,8 @@ class Pawn < SteppingPieces
 
   end
 
+  # overwrite moves method that generate possible moves
+
+  # special case: when init, could move two spaces at first move
+
 end
