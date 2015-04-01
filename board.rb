@@ -146,8 +146,12 @@ class Board
     false
   end
 
-  def render
-
+  def to_s
+    board.map do |row|
+      row.map do |maybe_piece|
+        maybe_piece.nil? ? "_" : maybe_piece.to_s
+      end.join
+    end.join("\n")
   end
 
 end

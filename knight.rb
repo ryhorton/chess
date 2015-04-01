@@ -1,9 +1,10 @@
+# coding: utf-8
 require_relative 'stepping_pieces.rb'
 
 class Knight < SteppingPieces
 
-  def type
-    "k"
+  def to_s
+    self.color == :w ? "♘" : "♞"
   end
 
   def move_diffs

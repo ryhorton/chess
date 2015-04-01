@@ -3,40 +3,53 @@
 require 'yaml'
 
 class Game
-
-  attr_accessor :board
+  attr_reader :board
 
   def initialize
     @board = Board.new
+    @player1 = HumanPlayer.new(:w)
+    @player2 = HumanPlayer.new(:b)
     # self.play
   end
 
   def play
-    puts "Pick your colors. Who's going first ('B' or 'W')?"
-    player1_color = gets.chomp.downcase.to_sym
+    player = @player1
 
-    player1 = HumanPlayer.new(player1_color)
+    until board.checkmate?(@player1.color) || board.checkmate?(@player2.color)
+      # calls the Board#to_s method because puts == put string
+      # which has been overwritten to return a string rep of the baord
+      puts board
+      puts "#{player.color}'s turn:"
+      return if maybe_save  # get out of method if player saved game
 
-    player2_color = [:b, :w].delete(player1_color).first
-    player2 = HumanPlayer.new(player2_color)
+      player.play_turn(board)
 
-    puts "Save your game at any time by typing 'S'."
-
-    until board.checkmate?(player1.color) || board.checkmate?(player2.color)
-      board.render
-      player1.play_turn
-      board.render
-      player2.play_turn
+      # players switch turns
+      player = (player == @player1 ? @player2 : @player1)
     end
 
     board.checkmate?(player1.color) ? winner = player2 : winner = player1
     puts "Game over! Congratulations, #{winner}"
   end
 
-  def save
-    result_name = gets.chomp
+  def maybe_save
+    puts "wanna save (y/n)?"
+    answer = gets.chomp.downcase
+    if answer == "y"
+      self.save
+      return true # get out of the whole method
+    end
 
-    File.open("#{result_name}", "w") do |f|
+    false
+  end
+
+  def save
+    puts "Enter filename to save at:"
+    filename = gets.chomp
+
+    # equivalent: File.write(filename, YAML.dump(self))
+
+    File.open("#{filename}", "w") do |f|
       f.puts self.to_yaml
     end
   end
@@ -45,44 +58,30 @@ end
 
 
 class HumanPlayer
-
   attr_accessor :color
 
   def initialize(color)
     @color = color
   end
 
-  def play_turn
-    # player moves a piece
+  def play_turn(board)
     begin
       puts "Enter the coordinates of the piece you want to move, e.g., < 1 2 >:"
-      start = gets.chomp
+      start = get_coord
 
-      # something here about saving game if the user types 'S'
-      # if start.downcase == "s"
-      # game.save
+      puts "Enter the coordinates of the space you want to move to:"
+      end_pos = get_coord
 
-      # name the file
-      # gets
-      # result_name
-
-     # if any error from any method called in here is raised, then rescue (below) will catch it
-
-      start.split(' ').to_a.map(&:to_i)  # gives start = [x, y]
-
+      board.move(start, end_pos)
+      # rescue will catch any error raised from any method called so far
     rescue InvalidMoveError => e
       puts e.message
-      retry
+      retry  # restarts method at 'begin'
     end
+  end
 
-    puts "Enter the coordinates of the space you want to move to:"
-    end_pos = gets.chomp.split(' ').to_a
-
-    # piece is moved
-    board.move(start, end_pos)
-
-    # players switch turns
-    player == player1 ? player = player2 : player = player1
+  def get_coord
+    coord_str = gets.chomp.split(' ').to_a.map(&:to_i)  # gives start = [x, y]
   end
 
 end

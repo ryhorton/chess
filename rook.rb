@@ -1,9 +1,10 @@
+# coding: utf-8
 require_relative 'sliding_pieces.rb'
 
 class Rook < SlidingPieces
 
-  def type
-    "r"
+  def to_s
+    self.color == :w ? "♖" : "♜"
   end
 
   def move_dirs

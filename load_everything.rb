@@ -11,3 +11,4 @@ load './knight.rb'
 load './pawn.rb'
 
 load './board.rb'
+load './game.rb'

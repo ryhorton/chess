@@ -1,9 +1,10 @@
+# coding: utf-8
 require_relative 'sliding_pieces.rb'
 
 class Queen < SlidingPieces
 
-  def type
-    "Q"
+  def to_s
+    self.color == :w ? "♕" : "♛"
   end
 
   def move_dirs
