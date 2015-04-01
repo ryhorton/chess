@@ -6,8 +6,18 @@ class King < SteppingPieces
     "K"
   end
 
-  def move_dirs
-    straight_moves + diagonal_moves
+  def move_diffs
+    # king can move 1 space in all 8 directions
+    [
+      [-1, 0],
+      [0, 1],
+      [1, 0],
+      [0, -1],
+      [-1, 1],
+      [1, 1],
+      [1, -1],
+      [-1, -1]
+    ]
   end
 
 end
