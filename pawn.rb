@@ -15,7 +15,7 @@ class Pawn < SteppingPieces
     # else:
 
     [
-      [1, 1]
+      [1, 0]
     ]
 
   end
