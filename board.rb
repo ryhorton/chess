@@ -88,9 +88,9 @@ class Board
 
   def move(start, end_pos)
     if self[start].nil?
-      raise "There is no piece to move at that position."
+      raise InvalidMoveError.new("There is no piece to move at that position.")
     elsif self[end_pos] && (self[end_pos].color == self[start].color)
-      raise "You can't move into a position you already occupy."
+      raise InvalidMoveError.new("You can't move into a position you already occupy.")
     end
     # self.[]([1,2])
     # self.[]=(value)
@@ -146,4 +146,13 @@ class Board
     false
   end
 
+  def render
+
+  end
+
+end
+
+
+class InvalidMoveError < StandardError
+  # doesn't have to have anything in it, we just to name it
 end
