@@ -95,11 +95,28 @@ class Board
     # self.[]([1,2])
     # self.[]=(value)
 
-    moving_piece = self[start]
-    moving_piece.position = end_pos
+    # checks whether the move is valid for the specified piece
+    proposed_move = [end_pos[0] - start[0], end_pos[1] - start[1]]
+    if self[start].valid_moves.include?(proposed_move)
+      moving_piece = self[start]
+      moving_piece.position = end_pos
 
-    self[end_pos] = moving_piece
-    self[start] = nil
+      # if there is an opponent piece at end_pos, take it
+      if self[end_pos] && self[end_pos].color != moving_piece.color
+        self[end_pos].position = nil
+      end
+
+      # assign the moving piece to end_pos
+      self[end_pos] = moving_piece
+      self[start] = nil
+
+    else
+      raise "Invalid move!"
+    end
+  end
+
+  def move!(start, end_pos)
+
   end
 
   def inspect
