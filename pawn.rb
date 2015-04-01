@@ -1,29 +1,40 @@
 # coding: utf-8
-require_relative 'stepping_pieces.rb'
+# require_relative 'stepping_pieces.rb'
 
-class Pawn < SteppingPieces
+class Pawn < Piece # < SteppingPieces
 
   def to_s
     self.color == :w ? "♙" : "♟"
   end
 
-  def move_diffs
-    # general case: pawn can only step one space forward
+  def moves
+    moves = []
 
-    # special cases:
-    # pawn can take two steps forward at first move (only)
-    # pawn can step diagonally when taking an opponent's piece
+    # # pawn can only step one space forward
+    # w_move = [self.position[0] + 1, self.position[1]]
+    # b_move = [self.position[0] - 1, self.position[1]]
+    #
+    # moves << (self.color == :w ? [w_move] : [b_move])
+    #
+    # # pawn can take two steps forward at first move (only)
+    # if self.color == :w && self.position[0] == 1
+    #   moves << [self.position[0] + 2, self.position[1]]
+    # elsif self.color == :b && self.position[0] == 6
+    #   moves << [self.position[0] - 2, self.position[1]]
+    # end
+    #
+    # # pawn can step diagonally when taking an opponent's piece
+    # if self.color == :w && @board[self.position[0] + 1, self.position[1] + 1].color == :b
+    #   moves << [self.position[0] + 1, self.position[1] + 1]
+    # elsif self.color == :w && @board[self.position[0] + 1, self.position[1] - 1].color == :b
+    #   moves << [self.position[0] + 1, self.position[1] - 1]
+    # elsif self.color == :b && @board[self.position[0] - 1, self.position[1] + 1].color == :w
+    #   moves << [self.position[0] + 1, self.position[1] + 1]
+    # elsif self.color == :b && @board[self.position[0] - 1, self.position[1] - 1].color == :w
+    #   moves << [self.position[0] + 1, self.position[1] - 1]
+    # end
 
-    # if (position + [1, -1]) or (position + [1, 1]) is occupied by other player:
-    # move_diffs << [1, -1], [1, 1]
-    # else:
-
-    [
-      [1, 0]
-    ]
-
+    moves
   end
-
-  # overwrite moves method that generate possible moves
 
 end

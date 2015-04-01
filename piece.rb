@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Piece
 
   attr_accessor :color, :position, :board
@@ -28,7 +26,6 @@ class Piece
     # use #move! because #move only allows valid moves and
     # valid moves excludes moves that would put a player in check
     # (infinite loop!)
-    # byebug
     dup_board.move!(self.position, pos)
     dup_board.in_check?(self.color)
 

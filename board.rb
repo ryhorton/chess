@@ -92,6 +92,7 @@ class Board
     elsif self[end_pos] && (self[end_pos].color == self[start].color)
       raise InvalidMoveError.new("You can't move into a position you already occupy.")
     end
+
     # self.[]([1,2])
     # self.[]=(value)
 
